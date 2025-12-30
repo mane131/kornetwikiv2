@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kornet Wiki - Old Roblox Revival</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<title>Kornet Wiki - Retro Roblox Revival</title>
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Nunito:wght@400;600;700;800&family=Bangers&display=swap" rel="stylesheet">
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
     /* Reset and Base */
     * {
@@ -13,66 +15,70 @@
         box-sizing: border-box;
     }
 
-    /* 2016 Roblox Retro Body */
+    /* Body with Roblox-inspired theme */
     body {
-        font-family: 'Orbitron', 'Arial', sans-serif;
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        color: #e0e0e0;
+        font-family: 'Nunito', sans-serif;
+        background: linear-gradient(135deg, #0a0a2a 0%, #1a1a4a 30%, #2a2a6a 100%);
+        color: #ffffff;
         min-height: 100vh;
-        background-image: 
-            radial-gradient(circle at 10% 20%, rgba(28, 58, 173, 0.1) 0%, transparent 20%),
-            radial-gradient(circle at 90% 80%, rgba(100, 20, 100, 0.1) 0%, transparent 20%);
-        line-height: 1.6;
         overflow-x: hidden;
-        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
-        padding: 10px;
+        line-height: 1.6;
+        position: relative;
     }
 
-    /* Retro Scanlines Effect */
-    body::before {
-        content: "";
+    /* Animated Star Background */
+    .stars {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(
-            to bottom,
-            transparent 50%,
-            rgba(0, 0, 0, 0.1) 50%
-        );
-        background-size: 100% 4px;
         pointer-events: none;
-        z-index: 1000;
-        opacity: 0.3;
+        z-index: 0;
     }
 
-    /* 3D Glass Text Effect */
-    .glass-text {
-        color: #fff;
-        text-shadow: 
-            0 1px 0 #ccc,
-            0 2px 0 #c9c9c9,
-            0 3px 0 #bbb,
-            0 4px 0 #b9b9b9,
-            0 5px 0 #aaa,
-            0 6px 1px rgba(0,0,0,.1),
-            0 0 5px rgba(0,0,0,.1),
-            0 1px 3px rgba(0,0,0,.3),
-            0 3px 5px rgba(0,0,0,.2),
-            0 5px 10px rgba(0,0,0,.25),
-            0 10px 10px rgba(0,0,0,.2),
-            0 20px 20px rgba(0,0,0,.15);
-        position: relative;
-        display: inline-block;
-        background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-shadow: 0 2px 0 rgba(0,0,0,0.3);
+    .star {
+        position: absolute;
+        background-color: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite alternate;
     }
 
-    /* Loading Screen - Retro Style */
+    @keyframes twinkle {
+        0% { opacity: 0.3; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Petals Container */
+    .petals-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+        overflow: hidden;
+    }
+
+    .petal {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: linear-gradient(45deg, #ff66b2, #ff3385);
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        opacity: 0.7;
+        filter: blur(1px);
+        animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(100vh) rotate(360deg);
+        }
+    }
+
+    /* Roblox Loading Screen */
     #loading-screen {
         position: fixed;
         top: 0;
@@ -85,51 +91,66 @@
         justify-content: center;
         align-items: center;
         z-index: 9999;
-        transition: opacity 1s ease-out, visibility 1s ease-out;
-        font-family: 'Orbitron', monospace;
+        transition: opacity 1.2s ease-out, visibility 1.2s ease-out;
     }
 
     .loading-logo {
         margin-bottom: 30px;
         text-align: center;
         position: relative;
+        animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
     }
 
     .loading-logo img {
         max-width: 350px;
         height: auto;
         filter: 
-            drop-shadow(0 0 10px rgba(66, 133, 244, 0.8))
-            drop-shadow(0 0 20px rgba(66, 133, 244, 0.6))
-            drop-shadow(0 0 30px rgba(66, 133, 244, 0.4));
-        animation: retroPulse 2s infinite alternate;
-        image-rendering: pixelated;
+            drop-shadow(0 0 20px rgba(255, 51, 102, 0.8))
+            drop-shadow(0 0 40px rgba(51, 153, 255, 0.6))
+            drop-shadow(0 0 60px rgba(255, 255, 255, 0.4));
+        animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+        0% { filter: drop-shadow(0 0 20px rgba(255, 51, 102, 0.8)) drop-shadow(0 0 40px rgba(51, 153, 255, 0.6)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.4)); }
+        100% { filter: drop-shadow(0 0 25px rgba(255, 102, 178, 0.9)) drop-shadow(0 0 50px rgba(102, 178, 255, 0.7)) drop-shadow(0 0 75px rgba(255, 255, 255, 0.5)); }
     }
 
     .loading-text {
-        color: #66c0ff;
-        font-size: 1.5em;
+        color: #ff66b2;
+        font-family: 'Bangers', cursive;
+        font-size: 2.5em;
         margin-bottom: 40px;
         text-align: center;
-        font-weight: 700;
+        letter-spacing: 3px;
         text-shadow: 
-            0 0 10px #4285f4,
-            0 0 20px #4285f4,
-            0 0 30px #4285f4;
-        animation: textGlow 1.5s infinite alternate;
-        letter-spacing: 2px;
+            0 0 10px #ff3385,
+            0 0 20px #ff3385,
+            0 0 30px #ff3385,
+            0 0 40px #ff0066;
+        animation: textPulse 1.5s infinite alternate;
+    }
+
+    @keyframes textPulse {
+        0% { text-shadow: 0 0 10px #ff3385, 0 0 20px #ff3385, 0 0 30px #ff3385, 0 0 40px #ff0066; }
+        100% { text-shadow: 0 0 15px #ff66b2, 0 0 25px #ff66b2, 0 0 35px #ff66b2, 0 0 45px #ff3385; }
     }
 
     .loading-bar-container {
         width: 400px;
         height: 25px;
-        background: rgba(0, 0, 0, 0.7);
-        border: 3px solid #4285f4;
-        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 3px solid #3399ff;
+        border-radius: 15px;
         overflow: hidden;
         box-shadow: 
-            inset 0 0 10px rgba(0, 0, 0, 0.8),
-            0 5px 15px rgba(0, 0, 0, 0.5);
+            inset 0 0 15px rgba(0, 0, 0, 0.8),
+            0 5px 20px rgba(0, 0, 0, 0.5);
         position: relative;
     }
 
@@ -137,9 +158,10 @@
         height: 100%;
         width: 0%;
         background: linear-gradient(90deg, 
-            #4285f4 0%,
-            #66c0ff 50%,
-            #4285f4 100%);
+            #ff0066 0%,
+            #ff66b2 33%,
+            #3399ff 66%,
+            #66ccff 100%);
         animation: loading 3s ease-in-out forwards;
         position: relative;
     }
@@ -153,271 +175,394 @@
         bottom: 0;
         background: linear-gradient(90deg,
             transparent 0%,
-            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.4) 50%,
             transparent 100%);
-        animation: shine 2s infinite;
+        animation: shine 1.5s infinite;
     }
 
     .loading-subtext {
-        color: #999;
-        font-size: 0.9em;
+        color: #66ccff;
+        font-family: 'Comic Neue', cursive;
+        font-size: 1.2em;
         margin-top: 20px;
         text-align: center;
-        text-shadow: 0 1px 0 #000;
         letter-spacing: 1px;
+        animation: colorShift 3s infinite alternate;
     }
 
-    @keyframes retroPulse {
-        0% { transform: scale(1); filter: brightness(1); }
-        100% { transform: scale(1.05); filter: brightness(1.3); }
-    }
-
-    @keyframes textGlow {
-        0% { text-shadow: 0 0 10px #4285f4, 0 0 20px #4285f4, 0 0 30px #4285f4; }
-        100% { text-shadow: 0 0 15px #66c0ff, 0 0 25px #66c0ff, 0 0 35px #66c0ff; }
-    }
-
-    @keyframes loading {
-        0% { width: 0%; }
-        25% { width: 30%; }
-        50% { width: 70%; }
-        75% { width: 90%; }
-        100% { width: 100%; }
-    }
-
-    @keyframes shine {
-        0% { transform: translateX(-100%); }
-        100% { transform: translateX(100%); }
+    @keyframes colorShift {
+        0% { color: #66ccff; }
+        50% { color: #ff66b2; }
+        100% { color: #ffffff; }
     }
 
     /* Retro Roblox Header */
     header {
         background: linear-gradient(135deg, 
-            rgba(20, 30, 48, 0.9) 0%,
-            rgba(36, 59, 85, 0.9) 100%);
-        padding: 25px 20px;
+            rgba(255, 0, 102, 0.9) 0%,
+            rgba(51, 153, 255, 0.9) 100%);
+        padding: 30px 20px;
         text-align: center;
-        border-bottom: 5px solid #4285f4;
-        border-radius: 15px 15px 0 0;
-        margin: 20px auto 0;
-        max-width: 1200px;
-        box-shadow: 
-            0 10px 30px rgba(0, 0, 0, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        border-bottom: 8px solid #ffcc00;
+        margin-bottom: 30px;
         position: relative;
         overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        animation: headerGlow 4s infinite alternate;
+    }
+
+    @keyframes headerGlow {
+        0% { box-shadow: 0 10px 30px rgba(255, 0, 102, 0.3); }
+        50% { box-shadow: 0 10px 30px rgba(51, 153, 255, 0.3); }
+        100% { box-shadow: 0 10px 30px rgba(255, 204, 0, 0.3); }
     }
 
     header::before {
         content: "";
         position: absolute;
         top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg,
-            transparent,
-            rgba(255, 255, 255, 0.4),
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.2), 
             transparent);
+        animation: shineHeader 3s infinite;
+    }
+
+    @keyframes shineHeader {
+        to { left: 100%; }
     }
 
     header h1 {
-        font-size: 3.5em;
+        font-family: 'Bangers', cursive;
+        font-size: 4em;
         margin: 0;
-        letter-spacing: 3px;
+        letter-spacing: 5px;
         text-transform: uppercase;
-        position: relative;
+        background: linear-gradient(45deg, #ffffff, #ffcc00, #ffffff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        animation: titleColorShift 5s infinite alternate;
+    }
+
+    @keyframes titleColorShift {
+        0% { background: linear-gradient(45deg, #ffffff, #ffcc00, #ffffff); }
+        33% { background: linear-gradient(45deg, #ffcc00, #3399ff, #ffcc00); }
+        66% { background: linear-gradient(45deg, #3399ff, #ff66b2, #3399ff); }
+        100% { background: linear-gradient(45deg, #ff66b2, #ffffff, #ff66b2); }
     }
 
     header p {
-        color: #66c0ff;
-        font-size: 1.2em;
+        color: #ffffff;
+        font-size: 1.5em;
         margin-top: 10px;
-        text-shadow: 0 0 10px rgba(102, 192, 255, 0.5);
-        letter-spacing: 2px;
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     }
 
-    /* Main Content - Retro Container */
+    /* Music Player */
+    .music-player {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(51, 153, 255, 0.9);
+        border-radius: 50px;
+        padding: 15px 25px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        z-index: 100;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 3px solid #ff66b2;
+        animation: playerFloat 3s ease-in-out infinite;
+        transition: transform 0.3s ease;
+    }
+
+    @keyframes playerFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    .music-player:hover {
+        transform: scale(1.05);
+    }
+
+    .music-player button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5em;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .music-player button:hover {
+        transform: scale(1.2);
+        color: #ffcc00;
+    }
+
+    .music-player span {
+        color: white;
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+        font-size: 1.1em;
+    }
+
+    /* Main Content */
     main {
         max-width: 1200px;
-        margin: 30px auto;
+        margin: 0 auto 100px;
         padding: 30px;
-        background: rgba(20, 25, 40, 0.85);
-        border: 3px solid #4285f4;
-        border-radius: 15px;
-        box-shadow: 
-            0 15px 35px rgba(0, 0, 0, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
         position: relative;
-        backdrop-filter: blur(10px);
+        z-index: 2;
     }
 
-    main::before {
-        content: "";
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        right: 5px;
-        bottom: 5px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
-        pointer-events: none;
-    }
-
-    /* Section Styling */
+    /* Retro Card Sections */
     section {
-        margin-bottom: 40px;
-        padding: 25px;
-        background: rgba(30, 35, 50, 0.7);
-        border-radius: 10px;
-        border: 1px solid rgba(66, 133, 244, 0.3);
+        background: linear-gradient(145deg, 
+            rgba(255, 255, 255, 0.1) 0%,
+            rgba(51, 153, 255, 0.1) 50%,
+            rgba(255, 102, 178, 0.1) 100%);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border: 3px solid;
+        border-image: linear-gradient(45deg, #ff0066, #3399ff, #ffcc00) 1;
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.2),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
         position: relative;
-        transition: all 0.3s ease;
+        overflow: hidden;
+        transition: all 0.4s ease;
+        animation: cardEntrance 0.8s ease-out backwards;
+    }
+
+    section:nth-child(2) { animation-delay: 0.1s; }
+    section:nth-child(3) { animation-delay: 0.2s; }
+    section:nth-child(4) { animation-delay: 0.3s; }
+    section:nth-child(5) { animation-delay: 0.4s; }
+    section:nth-child(6) { animation-delay: 0.5s; }
+
+    @keyframes cardEntrance {
+        from {
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
     }
 
     section:hover {
-        border-color: #66c0ff;
-        box-shadow: 0 0 20px rgba(102, 192, 255, 0.3);
-        transform: translateY(-2px);
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 
+            0 20px 40px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 102, 178, 0.3),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.2);
     }
 
     section::before {
         content: "";
         position: absolute;
         top: 0;
-        left: 0;
-        width: 5px;
+        left: -100%;
+        width: 100%;
         height: 100%;
-        background: linear-gradient(to bottom, #4285f4, #66c0ff);
-        border-radius: 5px 0 0 5px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            rgba(255, 255, 255, 0.1), 
+            transparent);
+        transition: left 0.7s ease;
+    }
+
+    section:hover::before {
+        left: 100%;
     }
 
     h2 {
-        color: #66c0ff;
+        font-family: 'Bangers', cursive;
+        font-size: 2.5em;
+        color: #ffcc00;
         margin-bottom: 20px;
-        font-size: 1.8em;
-        text-transform: uppercase;
+        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
         letter-spacing: 2px;
         position: relative;
-        padding-left: 15px;
+        display: inline-block;
+        padding-bottom: 10px;
+        animation: headingColor 6s infinite alternate;
+    }
+
+    @keyframes headingColor {
+        0% { color: #ffcc00; }
+        33% { color: #ff66b2; }
+        66% { color: #3399ff; }
+        100% { color: #ffffff; }
     }
 
     h2::after {
         content: "";
         position: absolute;
-        bottom: -5px;
+        bottom: 0;
         left: 0;
-        width: 100px;
-        height: 3px;
-        background: linear-gradient(90deg, #4285f4, transparent);
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #ff0066, #3399ff, #ffcc00);
+        border-radius: 2px;
+        animation: underlineWidth 3s infinite alternate;
+    }
+
+    @keyframes underlineWidth {
+        0% { width: 30%; left: 0; }
+        50% { width: 100%; left: 0; }
+        100% { width: 30%; left: 70%; }
     }
 
     p {
-        font-size: 1.1em;
+        font-size: 1.2em;
         margin-bottom: 20px;
-        line-height: 1.8;
-        color: #ccd6f6;
-        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+        color: #e6f7ff;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
 
-    /* Quote Styling */
+    strong {
+        color: #ffcc00;
+        text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        font-weight: 800;
+    }
+
+    
     .quote-box {
-        background: rgba(40, 45, 60, 0.9);
+        background: linear-gradient(135deg, 
+            rgba(255, 102, 178, 0.2) 0%,
+            rgba(51, 153, 255, 0.2) 100%);
+        border-radius: 15px;
         padding: 25px;
-        border-left: 4px solid #66c0ff;
-        margin: 20px 0;
-        border-radius: 8px;
+        margin: 25px 0;
+        border-left: 5px solid #ff0066;
         position: relative;
-        font-style: italic;
-        font-size: 1.2em;
-        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+        animation: quoteGlow 4s infinite alternate;
+    }
+
+    @keyframes quoteGlow {
+        0% { box-shadow: inset 0 0 20px rgba(255, 0, 102, 0.2); }
+        100% { box-shadow: inset 0 0 20px rgba(51, 153, 255, 0.2); }
     }
 
     .quote-box::before {
-        content: "❝";
+        content: '"';
         position: absolute;
-        top: -15px;
+        top: -20px;
         left: 20px;
-        color: #66c0ff;
-        font-size: 3em;
-        opacity: 0.7;
+        color: #ff66b2;
+        font-size: 4em;
+        font-family: 'Bangers', cursive;
+        opacity: 0.5;
     }
 
     .quote-author {
         text-align: right;
-        color: #4285f4;
-        font-weight: bold;
+        color: #66ccff;
+        font-weight: 700;
         margin-top: 15px;
-        font-style: normal;
-        font-size: 1em;
+        font-style: italic;
+        animation: authorColor 4s infinite alternate;
     }
 
-    /* Retro Lists */
+    @keyframes authorColor {
+        0% { color: #66ccff; }
+        100% { color: #ffcc00; }
+    }
+
+   
     ul, ol {
         padding-left: 30px;
         margin-bottom: 20px;
     }
 
     li {
-        margin-bottom: 10px;
-        color: #aab8d4;
+        margin-bottom: 12px;
+        color: #ccf2ff;
         padding-left: 10px;
         position: relative;
+        transition: all 0.3s ease;
+    }
+
+    li:hover {
+        color: #ffffff;
+        transform: translateX(10px);
     }
 
     li::before {
-        content: "▸";
-        color: #66c0ff;
+        content: "►";
+        color: #ff66b2;
         position: absolute;
-        left: -15px;
+        left: -20px;
         font-size: 1.2em;
+        animation: bulletBounce 1s infinite alternate;
     }
 
-    /* Staff List Box - Retro Style */
+    @keyframes bulletBounce {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(5px); }
+    }
+
+    
     .staff-list {
-        background: rgba(40, 45, 60, 0.9);
-        padding: 20px;
-        border-left: 4px solid #4285f4;
+        background: linear-gradient(135deg, 
+            rgba(51, 153, 255, 0.2) 0%,
+            rgba(255, 102, 178, 0.2) 100%);
+        padding: 25px;
+        border-radius: 15px;
         margin-bottom: 20px;
-        border-radius: 0 8px 8px 0;
-        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
         position: relative;
+        overflow: hidden;
+        border: 2px solid #3399ff;
+        animation: staffBorder 5s infinite alternate;
+    }
+
+    @keyframes staffBorder {
+        0% { border-color: #3399ff; }
+        50% { border-color: #ff66b2; }
+        100% { border-color: #ffcc00; }
     }
 
     .staff-list::before {
         content: "STAFF";
         position: absolute;
-        top: -10px;
-        left: 20px;
-        background: #4285f4;
+        top: -15px;
+        left: 30px;
+        background: linear-gradient(45deg, #ff0066, #3399ff);
         color: white;
-        padding: 5px 15px;
-        font-size: 0.8em;
-        border-radius: 5px;
-        font-weight: bold;
-        letter-spacing: 1px;
+        padding: 8px 20px;
+        font-family: 'Bangers', cursive;
+        font-size: 1.2em;
+        border-radius: 10px;
+        letter-spacing: 2px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
-    .staff-list p {
-        margin: 10px 0;
-        color: #ccd6f6;
-    }
-
-    /* Retro Links */
     a {
-        color: #66c0ff;
+        color: #66ccff;
         text-decoration: none;
         position: relative;
-        padding: 2px 5px;
+        padding: 3px 5px;
         transition: all 0.3s ease;
-        border-radius: 3px;
+        font-weight: 700;
+        border-radius: 5px;
     }
 
     a:hover {
         color: #ffffff;
-        background: rgba(102, 192, 255, 0.2);
-        text-shadow: 0 0 10px rgba(102, 192, 255, 0.8);
-        transform: translateY(-1px);
+        background: rgba(102, 204, 255, 0.2);
+        text-shadow: 0 0 15px rgba(102, 204, 255, 0.8);
     }
 
     a::after {
@@ -427,7 +572,7 @@
         left: 0;
         width: 0;
         height: 2px;
-        background: linear-gradient(90deg, #66c0ff, transparent);
+        background: linear-gradient(90deg, #ff66b2, #66ccff);
         transition: width 0.3s ease;
     }
 
@@ -435,40 +580,62 @@
         width: 100%;
     }
 
-    /* Retro Footer */
+   
     footer {
-        text-align: center;
-        padding: 25px;
         background: linear-gradient(135deg, 
-            rgba(20, 30, 48, 0.9) 0%,
-            rgba(36, 59, 85, 0.9) 100%);
-        border-top: 5px solid #4285f4;
-        margin: 40px auto 20px;
-        max-width: 1200px;
-        border-radius: 0 0 15px 15px;
-        color: #999;
-        font-size: 0.9em;
-        box-shadow: 
-            0 -5px 20px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            rgba(255, 0, 102, 0.9) 0%,
+            rgba(51, 153, 255, 0.9) 100%);
+        text-align: center;
+        padding: 30px;
+        margin-top: 50px;
+        border-top: 8px solid #ffcc00;
         position: relative;
+        overflow: hidden;
+        animation: footerWave 8s infinite linear;
+    }
+
+    @keyframes footerWave {
+        0% { background-position: 0% 0%; }
+        100% { background-position: 100% 100%; }
     }
 
     footer::before {
         content: "";
         position: absolute;
         top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 200px;
-        height: 3px;
-        background: linear-gradient(90deg,
-            transparent,
-            #4285f4,
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: linear-gradient(90deg, 
+            transparent, 
+            #ffffff, 
             transparent);
+        animation: footerShine 3s infinite;
     }
 
-    /* Loading screen transition styles */
+    @keyframes footerShine {
+        to { left: 100%; }
+    }
+
+    footer .glass-text {
+        font-family: 'Bangers', cursive;
+        font-size: 2em;
+        letter-spacing: 3px;
+        background: linear-gradient(45deg, #ffffff, #ffcc00);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    footer p {
+        margin-top: 15px;
+        color: #ffffff;
+        font-family: 'Comic Neue', cursive;
+        font-weight: 700;
+    }
+
+    
     body.loading #main-content {
         opacity: 0;
         visibility: hidden;
@@ -482,14 +649,13 @@
     body.loaded #main-content {
         opacity: 1;
         visibility: visible;
-        transition: opacity 0.8s ease-in, visibility 0.8s ease-in;
-        animation: fadeIn 1s ease-out;
+        animation: contentFadeIn 1.5s ease-out;
     }
 
-    @keyframes fadeIn {
+    @keyframes contentFadeIn {
         from {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         to {
             opacity: 1;
@@ -497,27 +663,28 @@
         }
     }
 
-    /* Retro Scrollbar */
+    
     ::-webkit-scrollbar {
-        width: 12px;
+        width: 14px;
     }
 
     ::-webkit-scrollbar-track {
-        background: rgba(20, 25, 40, 0.8);
+        background: linear-gradient(to bottom, #1a1a4a, #0c0c2e);
         border-radius: 10px;
     }
 
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #4285f4, #66c0ff);
+        background: linear-gradient(45deg, #ff0066, #3399ff, #ffcc00);
         border-radius: 10px;
-        border: 2px solid rgba(20, 25, 40, 0.8);
+        border: 3px solid #1a1a4a;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, #66c0ff, #4285f4);
+        background: linear-gradient(45deg, #ff3385, #66ccff, #ffd633);
     }
 
-    /* Responsive Design */
+    /* Responsive */
     @media (max-width: 768px) {
         header h1 {
             font-size: 2.5em;
@@ -525,47 +692,29 @@
         
         main {
             padding: 20px;
-            margin: 15px;
         }
         
         section {
-            padding: 15px;
+            padding: 20px;
         }
         
         .loading-bar-container {
             width: 300px;
         }
         
-        .quote-box {
-            padding: 20px;
-            font-size: 1em;
+        .music-player {
+            bottom: 10px;
+            right: 10px;
+            padding: 10px 15px;
         }
-    }
-
-    /* CRT Monitor Effect */
-    .crt::after {
-        content: " ";
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        background: rgba(18, 16, 16, 0.1);
-        opacity: 0.3;
-        z-index: 9999;
-        pointer-events: none;
-        background: repeating-linear-gradient(
-            0deg,
-            rgba(0, 0, 0, 0.15),
-            rgba(0, 0, 0, 0.15) 1px,
-            transparent 1px,
-            transparent 2px
-        );
     }
 </style>
 </head>
-<body class="loading crt">
+<body class="loading">
+    
+    <!-- Animated Background Elements -->
+    <div class="stars" id="stars"></div>
+    <div class="petals-container" id="petals"></div>
     
     <!-- Loading Screen -->
     <div id="loading-screen">
@@ -574,32 +723,43 @@
                  alt="Kornet Logo" 
                  id="kornet-logo">
         </div>
-        <div class="loading-text glass-text">LOADING KORNET WIKI</div>
+        <div class="loading-text">LOADING KORNET WIKI</div>
         <div class="loading-bar-container">
             <div class="loading-bar"></div>
         </div>
-        <div class="loading-subtext">OLD ROBLOX REVIVAL • EST. 2025</div>
+        <div class="loading-subtext">RETRO ROBLOX REVIVAL EXPERIENCE</div>
+    </div>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <button id="playPauseBtn"><i class="fas fa-play"></i></button>
+        <button id="volumeBtn"><i class="fas fa-volume-up"></i></button>
+        <span id="songTitle">Calm Retro Music</span>
+        <audio id="backgroundMusic" loop>
+            <source src="https://assets.mixkit.co/music/preview/mixkit-game-level-music-689.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 
     <!-- Main Content (initially hidden) -->
     <div id="main-content">
         <header>
-            <h1 class="glass-text">KORNET WIKI</h1>
-            <p>THE 2016 ROBLOX REVIVAL EXPERIENCE</p>
+            <h1>KORNET WIKI</h1>
+            <p>The Ultimate Retro Roblox Revival Experience</p>
         </header>
 
         <main>
             <!-- Overview -->
             <section>
-                <h2 class="glass-text">OVERVIEW</h2>
-                <p><strong class="glass-text">Kornet</strong> is an <strong class="glass-text">old Roblox revival</strong> aiming to recreate the authentic feel of classic Roblox gameplay and community interaction. We preserve legacy styles, mechanics, and aesthetics from earlier versions of Roblox (circa 2016). Founded on November 7, 2025, we're bringing back the nostalgia.</p>
-                <p>The main hub for the community is our <strong class="glass-text">Discord server</strong>, where members interact, get updates, and participate in revival-related events just like the old days.</p>
+                <h2>OVERVIEW</h2>
+                <p><strong>Kornet</strong> is an <strong>old Roblox revival</strong> aiming to recreate the authentic feel of classic Roblox gameplay and community interaction. We preserve legacy styles, mechanics, and aesthetics from earlier versions of Roblox (circa 2016). Founded on November 7, 2025, we're bringing back the nostalgia.</p>
+                <p>The main hub for the community is our <strong>Discord server</strong>, where members interact, get updates, and participate in revival-related events just like the old days.</p>
                 <p><strong>Official Discord Server:</strong> <a href="https://discord.gg/u5En32wvwM" target="_blank">https://discord.gg/u5En32wvwM</a></p>
             </section>
 
-            <!-- History (MOVED HERE, right after Overview) -->
+            <!-- History -->
             <section>
-                <h2 class="glass-text">HISTORY</h2>
+                <h2>HISTORY</h2>
                 <div class="quote-box">
                     "The reason I made kornet because I used to create echora but later then I went back to UNS to work there until I got interested into revival"
                     <div class="quote-author">— Potato, Kornet Founder</div>
@@ -608,13 +768,13 @@
 
             <!-- What is an Old Roblox Revival -->
             <section>
-                <h2 class="glass-text">WHAT IS AN OLD ROBLOX REVIVAL?</h2>
+                <h2>WHAT IS AN OLD ROBLOX REVIVAL?</h2>
                 <p>An old Roblox revival is a community project that aims to bring back the nostalgic experience of playing Roblox from its earlier years (roughly 2006-2016). These revivals often feature the older blocky graphics, simple UIs, classic games, and that authentic community feel that modern Roblox has lost.</p>
             </section>
 
             <!-- Staff -->
             <section>
-                <h2 class="glass-text">STAFF TEAM</h2>
+                <h2>STAFF TEAM</h2>
                 <div class="staff-list">
                     <p><strong>OWNERS:</strong> Potato, Aaron, Unknown</p>
                     <p><strong>ADMINISTRATORS:</strong> Daniel, Mustard</p>
@@ -625,7 +785,7 @@
 
             <!-- Rules -->
             <section>
-                <h2 class="glass-text">RULES & GUIDELINES</h2>
+                <h2>RULES & GUIDELINES</h2>
                 <p>To maintain the classic Roblox community feel, we follow these rules:</p>
                 <ul>
                     <li>Be respectful to all members (just like old Roblox)</li>
@@ -639,7 +799,7 @@
 
             <!-- How to Join -->
             <section>
-                <h2 class="glass-text">HOW TO JOIN KORNET</h2>
+                <h2>HOW TO JOIN KORNET</h2>
                 <p>Ready to experience classic Roblox again? Join Kornet by:</p>
                 <ol>
                     <li>Joining our Discord server: <a href="https://discord.gg/u5En32wvwM" target="_blank">https://discord.gg/u5En32wvwM</a></li>
@@ -650,7 +810,7 @@
 
             <!-- Credits -->
             <section>
-                <h2 class="glass-text">CREDITS</h2>
+                <h2>CREDITS</h2>
                 <ul>
                     <li>Kornet Owners & Staff Team</li>
                     <li>Original Roblox Corporation (2006-2016)</li>
@@ -662,8 +822,8 @@
 
         <footer>
             <div class="glass-text">&copy; 2025 KORNET REVIVAL PROJECT</div>
-            <p style="margin-top: 10px;">NOT OFFICIALLY AFFILIATED WITH ROBLOX CORPORATION</p>
-            <p style="font-size: 0.8em; margin-top: 10px; color: #666;">Roblox is a registered trademark of Roblox Corporation</p>
+            <p>NOT OFFICIALLY AFFILIATED WITH ROBLOX CORPORATION</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Roblox is a registered trademark of Roblox Corporation</p>
         </footer>
     </div>
 
@@ -672,10 +832,103 @@
 <script src="main.js"></script>
 
 <script>
-    // Update the existing loading.js to work with our new design
-    // This ensures compatibility with the external loading.js file
+    
     document.addEventListener('DOMContentLoaded', function() {
-        // Add glass-text class to all headings and strong elements
+       
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = Math.random() * 3 + 1 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = Math.random() * 2 + 2 + 's';
+            starsContainer.appendChild(star);
+        }
+        
+       
+        const petalsContainer = document.getElementById('petals');
+        for (let i = 0; i < 25; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.top = Math.random() * -20 + 'px';
+            petal.style.animationDuration = Math.random() * 10 + 10 + 's';
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            petal.style.opacity = Math.random() * 0.5 + 0.3;
+            petal.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
+            petalsContainer.appendChild(petal);
+        }
+        
+      
+        const musicPlayer = document.getElementById('musicPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeBtn = document.getElementById('volumeBtn');
+        const songTitle = document.getElementById('songTitle');
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicIcon = playPauseBtn.querySelector('i');
+        const volumeIcon = volumeBtn.querySelector('i');
+        
+        let isPlaying = false;
+        let isMuted = false;
+        
+        
+        setTimeout(() => {
+            if (!isPlaying) {
+                backgroundMusic.play().then(() => {
+                    isPlaying = true;
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                    songTitle.textContent = "Playing: Retro Vibes";
+                }).catch(error => {
+                    console.log("Auto-play was prevented:", error);
+                    songTitle.textContent = "Click to play music";
+                });
+            }
+        }, 2000);
+        
+     
+        playPauseBtn.addEventListener('click', function() {
+            if (isPlaying) {
+                backgroundMusic.pause();
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+                songTitle.textContent = "Paused: Retro Vibes";
+            } else {
+                backgroundMusic.play().then(() => {
+                    musicIcon.classList.remove('fa-play');
+                    musicIcon.classList.add('fa-pause');
+                    songTitle.textContent = "Playing: Retro Vibes";
+                }).catch(error => {
+                    console.log("Play was prevented:", error);
+                    songTitle.textContent = "Click to play music";
+                });
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        
+        volumeBtn.addEventListener('click', function() {
+            if (isMuted) {
+                backgroundMusic.volume = 0.7;
+                volumeIcon.classList.remove('fa-volume-mute');
+                volumeIcon.classList.add('fa-volume-up');
+                songTitle.textContent = isPlaying ? "Playing: Retro Vibes" : "Paused: Retro Vibes";
+            } else {
+                backgroundMusic.volume = 0;
+                volumeIcon.classList.remove('fa-volume-up');
+                volumeIcon.classList.add('fa-volume-mute');
+                songTitle.textContent = "Music Muted";
+            }
+            isMuted = !isMuted;
+        });
+        
+        
+        backgroundMusic.volume = 0.7;
+        
+      
         document.querySelectorAll('h1, h2, h3, strong').forEach(el => {
             if (!el.classList.contains('glass-text')) {
                 el.classList.add('glass-text');
