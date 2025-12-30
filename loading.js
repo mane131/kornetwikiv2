@@ -1,101 +1,90 @@
-
+// loading.js - Fixed version
 (function() {
     'use strict';
     
-   
     const CONFIG = {
-        loadingTime: 4000, // 4 seconds total loading time
+        loadingTime: 3000, // 3 seconds total loading time
         fadeOutTime: 800,  // 800ms fade out animation
         fallbackTime: 5000 // 5 second fallback timeout
     };
     
-    
-    const KORNET_LOGO_URL = "https://raw.githubusercontent.com/mane131/Kornet-Wiki/refs/heads/main/kornet.png";
-    
-
+    // Preload the logo image
     function preloadLogoImage() {
         const logoImg = document.getElementById('kornet-logo');
-      
-        if (logoImg) {
-            if (!logoImg.src || logoImg.src.includes('placeholder')) {
-                logoImg.src = KORNET_LOGO_URL;
-            }
-            
-            console.log('Preloading Kornet logo image:', logoImg.src);
-            
-            
+        if (logoImg && logoImg.src) {
             const img = new Image();
             img.onload = function() {
                 console.log('Kornet logo image loaded successfully');
-               
-                adjustLogoStyle(img.width, img.height);
             };
             img.onerror = function() {
-                console.error('Failed to load Kornet logo image from:', KORNET_LOGO_URL);
-                
+                console.error('Failed to load Kornet logo image');
                 fallbackToTextLogo();
             };
             img.src = logoImg.src;
         }
     }
     
-  
-    function adjustLogoStyle(width, height) {
-        const logoImg = document.getElementById('kornet-logo');
-        if (!logoImg) return;
+    // Animate the loading bar
+    function animateLoadingBar() {
+        const loadingBar = document.querySelector('.loading-bar');
+        if (!loadingBar) return;
         
-    
-        if (width > 400) {
-            logoImg.style.maxWidth = '400px';
-        }
-        
-      
-        if (height > 150) {
-            logoImg.style.maxHeight = '150px';
-        }
-    
-        logoImg.style.display = 'block';
-        logoImg.style.margin = '0 auto';
+        // Start the animation
+        let width = 0;
+        const interval = setInterval(() => {
+            if (width >= 100) {
+                clearInterval(interval);
+                return;
+            }
+            width += 1;
+            loadingBar.style.width = width + '%';
+        }, CONFIG.loadingTime / 100); // Divide by 100 for smooth animation
     }
     
-
-    function fallbackToTextLogo() {
-        const logoContainer = document.querySelector('.loading-logo');
-        if (logoContainer) {
-            logoContainer.innerHTML = `
-                <div style="color: #ff0000; font-size: 3em; text-shadow: 0 0 15px rgba(255, 0, 0, 0.7); font-family: 'Press Start 2P', cursive; animation: pulse 2s infinite;">
-                    KORNET
-                </div>
-            `;
-            console.log('Using fallback text logo');
-        }
-    }
-    
+    // Main loading screen handler
     function handleLoadingScreen() {
-       
+        // Start animating the loading bar immediately
+        animateLoadingBar();
+        
+        // Wait for the page to fully load
         window.addEventListener('load', function() {
             console.log('Page fully loaded, starting loading screen transition');
             
-            // Add a small delay to ensure the loading animation completes
+            // Ensure loading bar reaches 100%
             setTimeout(function() {
-                document.body.classList.remove('loading');
-                document.body.classList.add('loaded');
+                const loadingBar = document.querySelector('.loading-bar');
+                if (loadingBar) {
+                    loadingBar.style.width = '100%';
+                }
                 
-                // Remove loading screen from DOM after transition
+                // Add a small delay to show 100% completion
                 setTimeout(function() {
-                    const loadingScreen = document.getElementById('loading-screen');
-                    if (loadingScreen) {
-                        loadingScreen.style.display = 'none';
-                        console.log('Loading screen hidden');
-                    }
-                }, CONFIG.fadeOutTime);
+                    document.body.classList.remove('loading');
+                    document.body.classList.add('loaded');
+                    
+                    // Remove loading screen from DOM after transition
+                    setTimeout(function() {
+                        const loadingScreen = document.getElementById('loading-screen');
+                        if (loadingScreen) {
+                            loadingScreen.style.display = 'none';
+                            console.log('Loading screen hidden');
+                        }
+                    }, CONFIG.fadeOutTime);
+                }, 500); // Show 100% for half a second
             }, CONFIG.loadingTime);
         });
 
-     
+        // Fallback: If page takes too long to load, show content anyway
         setTimeout(function() {
             if (document.body.classList.contains('loading')) {
                 console.log('Fallback timeout triggered, forcing content display');
+                
+                // Set loading bar to 100%
+                const loadingBar = document.querySelector('.loading-bar');
+                if (loadingBar) {
+                    loadingBar.style.width = '100%';
+                }
+                
                 document.body.classList.remove('loading');
                 document.body.classList.add('loaded');
                 
@@ -110,7 +99,20 @@
         }, CONFIG.fallbackTime);
     }
     
-   
+    // Fallback to text logo if image fails to load
+    function fallbackToTextLogo() {
+        const logoContainer = document.querySelector('.loading-logo');
+        if (logoContainer) {
+            logoContainer.innerHTML = `
+                <div style="color: #ff66b2; font-size: 3em; font-family: 'Bangers', cursive; letter-spacing: 3px; text-shadow: 0 0 10px #ff3385;">
+                    KORNET
+                </div>
+            `;
+            console.log('Using fallback text logo');
+        }
+    }
+    
+    // Initialize when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM ready, initializing loading screen');
@@ -123,10 +125,9 @@
         handleLoadingScreen();
     }
     
-
+    // Public API for testing
     window.KornetLoading = {
-        
-        show: function() {
+        simulate: function(duration = 3000) {
             document.body.classList.add('loading');
             document.body.classList.remove('loaded');
             const loadingScreen = document.getElementById('loading-screen');
@@ -135,10 +136,26 @@
                 loadingScreen.style.opacity = '1';
                 loadingScreen.style.visibility = 'visible';
             }
-            console.log('Loading screen manually shown');
+            
+            // Animate loading bar
+            const loadingBar = document.querySelector('.loading-bar');
+            if (loadingBar) {
+                loadingBar.style.width = '0%';
+                let width = 0;
+                const interval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            this.hide();
+                        }, 500);
+                        return;
+                    }
+                    width += 1;
+                    loadingBar.style.width = width + '%';
+                }, duration / 100);
+            }
         },
         
- 
         hide: function() {
             document.body.classList.remove('loading');
             document.body.classList.add('loaded');
@@ -149,32 +166,6 @@
                     loadingScreen.style.display = 'none';
                 }
             }, CONFIG.fadeOutTime);
-            console.log('Loading screen manually hidden');
-        },
-        
-  
-        simulate: function(duration = 3000) {
-            this.show();
-            
-            setTimeout(() => {
-                this.hide();
-            }, duration);
-        },
-        
-
-        updateLogo: function(newSrc) {
-            const logoImg = document.getElementById('kornet-logo');
-            if (logoImg) {
-                logoImg.src = newSrc;
-                preloadLogoImage();
-                console.log('Logo image updated to:', newSrc);
-            }
-        },
-        
- 
-        getLogoUrl: function() {
-            const logoImg = document.getElementById('kornet-logo');
-            return logoImg ? logoImg.src : KORNET_LOGO_URL;
         }
     };
 })();
