@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kornet Wiki - Old Roblox Revival</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+    /* Reset and Base */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* 2016 Roblox Retro Body */
+    body {
+        font-family: 'Orbitron', 'Arial', sans-serif;
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        color: #e0e0e0;
+        min-height: 100vh;
+        background-image: 
+            radial-gradient(circle at 10% 20%, rgba(28, 58, 173, 0.1) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(100, 20, 100, 0.1) 0%, transparent 20%);
+        line-height: 1.6;
+        overflow-x: hidden;
+        text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
+        padding: 10px;
+    }
+
+    /* Retro Scanlines Effect */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            to bottom,
+            transparent 50%,
+            rgba(0, 0, 0, 0.1) 50%
+        );
+        background-size: 100% 4px;
+        pointer-events: none;
+        z-index: 1000;
+        opacity: 0.3;
+    }
+
+    /* 3D Glass Text Effect */
+    .glass-text {
+        color: #fff;
+        text-shadow: 
+            0 1px 0 #ccc,
+            0 2px 0 #c9c9c9,
+            0 3px 0 #bbb,
+            0 4px 0 #b9b9b9,
+            0 5px 0 #aaa,
+            0 6px 1px rgba(0,0,0,.1),
+            0 0 5px rgba(0,0,0,.1),
+            0 1px 3px rgba(0,0,0,.3),
+            0 3px 5px rgba(0,0,0,.2),
+            0 5px 10px rgba(0,0,0,.25),
+            0 10px 10px rgba(0,0,0,.2),
+            0 20px 20px rgba(0,0,0,.15);
+        position: relative;
+        display: inline-block;
+        background: linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 2px 0 rgba(0,0,0,0.3);
+    }
+
+    /* Loading Screen - Retro Style */
+    #loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #0c0c2e 0%, #1a1a4a 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 1s ease-out, visibility 1s ease-out;
+        font-family: 'Orbitron', monospace;
+    }
+
+    .loading-logo {
+        margin-bottom: 30px;
+        text-align: center;
+        position: relative;
+    }
+
+    .loading-logo img {
+        max-width: 350px;
+        height: auto;
+        filter: 
+            drop-shadow(0 0 10px rgba(66, 133, 244, 0.8))
+            drop-shadow(0 0 20px rgba(66, 133, 244, 0.6))
+            drop-shadow(0 0 30px rgba(66, 133, 244, 0.4));
+        animation: retroPulse 2s infinite alternate;
+        image-rendering: pixelated;
+    }
+
+    .loading-text {
+        color: #66c0ff;
+        font-size: 1.5em;
+        margin-bottom: 40px;
+        text-align: center;
+        font-weight: 700;
+        text-shadow: 
+            0 0 10px #4285f4,
+            0 0 20px #4285f4,
+            0 0 30px #4285f4;
+        animation: textGlow 1.5s infinite alternate;
+        letter-spacing: 2px;
+    }
+
+    .loading-bar-container {
+        width: 400px;
+        height: 25px;
+        background: rgba(0, 0, 0, 0.7);
+        border: 3px solid #4285f4;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 
+            inset 0 0 10px rgba(0, 0, 0, 0.8),
+            0 5px 15px rgba(0, 0, 0, 0.5);
+        position: relative;
+    }
+
+    .loading-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, 
+            #4285f4 0%,
+            #66c0ff 50%,
+            #4285f4 100%);
+        animation: loading 3s ease-in-out forwards;
+        position: relative;
+    }
+
+    .loading-bar::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 100%);
+        animation: shine 2s infinite;
+    }
+
+    .loading-subtext {
+        color: #999;
+        font-size: 0.9em;
+        margin-top: 20px;
+        text-align: center;
+        text-shadow: 0 1px 0 #000;
+        letter-spacing: 1px;
+    }
+
+    @keyframes retroPulse {
+        0% { transform: scale(1); filter: brightness(1); }
+        100% { transform: scale(1.05); filter: brightness(1.3); }
+    }
+
+    @keyframes textGlow {
+        0% { text-shadow: 0 0 10px #4285f4, 0 0 20px #4285f4, 0 0 30px #4285f4; }
+        100% { text-shadow: 0 0 15px #66c0ff, 0 0 25px #66c0ff, 0 0 35px #66c0ff; }
+    }
+
+    @keyframes loading {
+        0% { width: 0%; }
+        25% { width: 30%; }
+        50% { width: 70%; }
+        75% { width: 90%; }
+        100% { width: 100%; }
+    }
+
+    @keyframes shine {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+
+    /* Retro Roblox Header */
+    header {
+        background: linear-gradient(135deg, 
+            rgba(20, 30, 48, 0.9) 0%,
+            rgba(36, 59, 85, 0.9) 100%);
+        padding: 25px 20px;
+        text-align: center;
+        border-bottom: 5px solid #4285f4;
+        border-radius: 15px 15px 0 0;
+        margin: 20px auto 0;
+        max-width: 1200px;
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent);
+    }
+
+    header h1 {
+        font-size: 3.5em;
+        margin: 0;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        position: relative;
+    }
+
+    header p {
+        color: #66c0ff;
+        font-size: 1.2em;
+        margin-top: 10px;
+        text-shadow: 0 0 10px rgba(102, 192, 255, 0.5);
+        letter-spacing: 2px;
+    }
+
+    /* Main Content - Retro Container */
+    main {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 30px;
+        background: rgba(20, 25, 40, 0.85);
+        border: 3px solid #4285f4;
+        border-radius: 15px;
+        box-shadow: 
+            0 15px 35px rgba(0, 0, 0, 0.5),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        position: relative;
+        backdrop-filter: blur(10px);
+    }
+
+    main::before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        pointer-events: none;
+    }
+
+    /* Section Styling */
+    section {
+        margin-bottom: 40px;
+        padding: 25px;
+        background: rgba(30, 35, 50, 0.7);
+        border-radius: 10px;
+        border: 1px solid rgba(66, 133, 244, 0.3);
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+    section:hover {
+        border-color: #66c0ff;
+        box-shadow: 0 0 20px rgba(102, 192, 255, 0.3);
+        transform: translateY(-2px);
+    }
+
+    section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(to bottom, #4285f4, #66c0ff);
+        border-radius: 5px 0 0 5px;
+    }
+
+    h2 {
+        color: #66c0ff;
+        margin-bottom: 20px;
+        font-size: 1.8em;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        position: relative;
+        padding-left: 15px;
+    }
+
+    h2::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(90deg, #4285f4, transparent);
+    }
+
+    p {
+        font-size: 1.1em;
+        margin-bottom: 20px;
+        line-height: 1.8;
+        color: #ccd6f6;
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Quote Styling */
+    .quote-box {
+        background: rgba(40, 45, 60, 0.9);
+        padding: 25px;
+        border-left: 4px solid #66c0ff;
+        margin: 20px 0;
+        border-radius: 8px;
+        position: relative;
+        font-style: italic;
+        font-size: 1.2em;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .quote-box::before {
+        content: "❝";
+        position: absolute;
+        top: -15px;
+        left: 20px;
+        color: #66c0ff;
+        font-size: 3em;
+        opacity: 0.7;
+    }
+
+    .quote-author {
+        text-align: right;
+        color: #4285f4;
+        font-weight: bold;
+        margin-top: 15px;
+        font-style: normal;
+        font-size: 1em;
+    }
+
+    /* Retro Lists */
+    ul, ol {
+        padding-left: 30px;
+        margin-bottom: 20px;
+    }
+
+    li {
+        margin-bottom: 10px;
+        color: #aab8d4;
+        padding-left: 10px;
+        position: relative;
+    }
+
+    li::before {
+        content: "▸";
+        color: #66c0ff;
+        position: absolute;
+        left: -15px;
+        font-size: 1.2em;
+    }
+
+    /* Staff List Box - Retro Style */
+    .staff-list {
+        background: rgba(40, 45, 60, 0.9);
+        padding: 20px;
+        border-left: 4px solid #4285f4;
+        margin-bottom: 20px;
+        border-radius: 0 8px 8px 0;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .staff-list::before {
+        content: "STAFF";
+        position: absolute;
+        top: -10px;
+        left: 20px;
+        background: #4285f4;
+        color: white;
+        padding: 5px 15px;
+        font-size: 0.8em;
+        border-radius: 5px;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .staff-list p {
+        margin: 10px 0;
+        color: #ccd6f6;
+    }
+
+    /* Retro Links */
+    a {
+        color: #66c0ff;
+        text-decoration: none;
+        position: relative;
+        padding: 2px 5px;
+        transition: all 0.3s ease;
+        border-radius: 3px;
+    }
+
+    a:hover {
+        color: #ffffff;
+        background: rgba(102, 192, 255, 0.2);
+        text-shadow: 0 0 10px rgba(102, 192, 255, 0.8);
+        transform: translateY(-1px);
+    }
+
+    a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #66c0ff, transparent);
+        transition: width 0.3s ease;
+    }
+
+    a:hover::after {
+        width: 100%;
+    }
+
+    /* Retro Footer */
+    footer {
+        text-align: center;
+        padding: 25px;
+        background: linear-gradient(135deg, 
+            rgba(20, 30, 48, 0.9) 0%,
+            rgba(36, 59, 85, 0.9) 100%);
+        border-top: 5px solid #4285f4;
+        margin: 40px auto 20px;
+        max-width: 1200px;
+        border-radius: 0 0 15px 15px;
+        color: #999;
+        font-size: 0.9em;
+        box-shadow: 
+            0 -5px 20px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        position: relative;
+    }
+
+    footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 3px;
+        background: linear-gradient(90deg,
+            transparent,
+            #4285f4,
+            transparent);
+    }
+
+    /* Loading screen transition styles */
+    body.loading #main-content {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    body.loaded #loading-screen {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    body.loaded #main-content {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 0.8s ease-in, visibility 0.8s ease-in;
+        animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Retro Scrollbar */
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: rgba(20, 25, 40, 0.8);
+        border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #4285f4, #66c0ff);
+        border-radius: 10px;
+        border: 2px solid rgba(20, 25, 40, 0.8);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #66c0ff, #4285f4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 2.5em;
+        }
+        
+        main {
+            padding: 20px;
+            margin: 15px;
+        }
+        
+        section {
+            padding: 15px;
+        }
+        
+        .loading-bar-container {
+            width: 300px;
+        }
+        
+        .quote-box {
+            padding: 20px;
+            font-size: 1em;
+        }
+    }
+
+    /* CRT Monitor Effect */
+    .crt::after {
+        content: " ";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background: rgba(18, 16, 16, 0.1);
+        opacity: 0.3;
+        z-index: 9999;
+        pointer-events: none;
+        background: repeating-linear-gradient(
+            0deg,
+            rgba(0, 0, 0, 0.15),
+            rgba(0, 0, 0, 0.15) 1px,
+            transparent 1px,
+            transparent 2px
+        );
+    }
+</style>
+</head>
+<body class="loading crt">
+    
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-logo">
+            <img src="https://raw.githubusercontent.com/mane131/Kornet-Wiki/refs/heads/main/kornet.png" 
+                 alt="Kornet Logo" 
+                 id="kornet-logo">
+        </div>
+        <div class="loading-text glass-text">LOADING KORNET WIKI</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        <div class="loading-subtext">OLD ROBLOX REVIVAL • EST. 2025</div>
+    </div>
+
+    <!-- Main Content (initially hidden) -->
+    <div id="main-content">
+        <header>
+            <h1 class="glass-text">KORNET WIKI</h1>
+            <p>THE 2016 ROBLOX REVIVAL EXPERIENCE</p>
+        </header>
+
+        <main>
+            <!-- Overview -->
+            <section>
+                <h2 class="glass-text">OVERVIEW</h2>
+                <p><strong class="glass-text">Kornet</strong> is an <strong class="glass-text">old Roblox revival</strong> aiming to recreate the authentic feel of classic Roblox gameplay and community interaction. We preserve legacy styles, mechanics, and aesthetics from earlier versions of Roblox (circa 2016). Founded on November 7, 2025, we're bringing back the nostalgia.</p>
+                <p>The main hub for the community is our <strong class="glass-text">Discord server</strong>, where members interact, get updates, and participate in revival-related events just like the old days.</p>
+                <p><strong>Official Discord Server:</strong> <a href="https://discord.gg/u5En32wvwM" target="_blank">https://discord.gg/u5En32wvwM</a></p>
+            </section>
+
+            <!-- History (MOVED HERE, right after Overview) -->
+            <section>
+                <h2 class="glass-text">HISTORY</h2>
+                <div class="quote-box">
+                    "The reason I made kornet because I used to create echora but later then I went back to UNS to work there until I got interested into revival"
+                    <div class="quote-author">— Potato, Kornet Founder</div>
+                </div>
+            </section>
+
+            <!-- What is an Old Roblox Revival -->
+            <section>
+                <h2 class="glass-text">WHAT IS AN OLD ROBLOX REVIVAL?</h2>
+                <p>An old Roblox revival is a community project that aims to bring back the nostalgic experience of playing Roblox from its earlier years (roughly 2006-2016). These revivals often feature the older blocky graphics, simple UIs, classic games, and that authentic community feel that modern Roblox has lost.</p>
+            </section>
+
+            <!-- Staff -->
+            <section>
+                <h2 class="glass-text">STAFF TEAM</h2>
+                <div class="staff-list">
+                    <p><strong>OWNERS:</strong> Potato, Aaron, Unknown</p>
+                    <p><strong>ADMINISTRATORS:</strong> Daniel, Mustard</p>
+                    <p><strong>MODERATORS:</strong> Haron fr, S . (Lead Moderator)</p>
+                    <p><strong>DEVELOPERS / LEADS:</strong> Unknown, RCC, Potato</p>
+                </div>
+            </section>
+
+            <!-- Rules -->
+            <section>
+                <h2 class="glass-text">RULES & GUIDELINES</h2>
+                <p>To maintain the classic Roblox community feel, we follow these rules:</p>
+                <ul>
+                    <li>Be respectful to all members (just like old Roblox)</li>
+                    <li>No harassment, hate speech, or toxicity</li>
+                    <li>No inappropriate content or slurs</li>
+                    <li>Follow staff instructions</li>
+                    <li>No advertising without permission</li>
+                    <li>Keep it family-friendly like classic Roblox</li>
+                </ul>
+            </section>
+
+            <!-- How to Join -->
+            <section>
+                <h2 class="glass-text">HOW TO JOIN KORNET</h2>
+                <p>Ready to experience classic Roblox again? Join Kornet by:</p>
+                <ol>
+                    <li>Joining our Discord server: <a href="https://discord.gg/u5En32wvwM" target="_blank">https://discord.gg/u5En32wvwM</a></li>
+                    <li>Visiting our main website: <a href="https://kornet.lat" target="_blank">kornet.lat</a></li>
+                    <li>Downloading the client from our community forums</li>
+                </ol>
+            </section>
+
+            <!-- Credits -->
+            <section>
+                <h2 class="glass-text">CREDITS</h2>
+                <ul>
+                    <li>Kornet Owners & Staff Team</li>
+                    <li>Original Roblox Corporation (2006-2016)</li>
+                    <li>All our community members and testers</li>
+                    <li>Open source contributors</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <div class="glass-text">&copy; 2025 KORNET REVIVAL PROJECT</div>
+            <p style="margin-top: 10px;">NOT OFFICIALLY AFFILIATED WITH ROBLOX CORPORATION</p>
+            <p style="font-size: 0.8em; margin-top: 10px; color: #666;">Roblox is a registered trademark of Roblox Corporation</p>
+        </footer>
+    </div>
+
+<!-- External JavaScript -->
+<script src="loading.js"></script>
+<script src="main.js"></script>
+
+<script>
+    // Update the existing loading.js to work with our new design
+    // This ensures compatibility with the external loading.js file
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add glass-text class to all headings and strong elements
+        document.querySelectorAll('h1, h2, h3, strong').forEach(el => {
+            if (!el.classList.contains('glass-text')) {
+                el.classList.add('glass-text');
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
