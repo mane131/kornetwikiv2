@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kornet Wiki - Retro Roblox Revival</title>
-<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Nunito:wght@400;600;700;800&family=Bangers&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Nunito:wght@400;600;700;800&family=Bangers&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 <!-- Font Awesome for icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -15,10 +15,10 @@
         box-sizing: border-box;
     }
 
-    /* Body with Roblox-inspired theme */
+    /* Body with clean Roblox-inspired theme */
     body {
         font-family: 'Nunito', sans-serif;
-        background: linear-gradient(135deg, #0a0a2a 0%, #1a1a4a 30%, #2a2a6a 100%);
+        background: linear-gradient(135deg, #0a0a2a 0%, #1a1a4a 100%);
         color: #ffffff;
         min-height: 100vh;
         overflow-x: hidden;
@@ -110,42 +110,39 @@
         max-width: 350px;
         height: auto;
         filter: 
-            drop-shadow(0 0 20px rgba(255, 51, 102, 0.8))
-            drop-shadow(0 0 40px rgba(51, 153, 255, 0.6))
-            drop-shadow(0 0 60px rgba(255, 255, 255, 0.4));
+            drop-shadow(0 0 20px rgba(255, 0, 0, 0.8))
+            drop-shadow(0 0 40px rgba(0, 0, 255, 0.6));
         animation: glow 2s infinite alternate;
     }
 
     @keyframes glow {
-        0% { filter: drop-shadow(0 0 20px rgba(255, 51, 102, 0.8)) drop-shadow(0 0 40px rgba(51, 153, 255, 0.6)) drop-shadow(0 0 60px rgba(255, 255, 255, 0.4)); }
-        100% { filter: drop-shadow(0 0 25px rgba(255, 102, 178, 0.9)) drop-shadow(0 0 50px rgba(102, 178, 255, 0.7)) drop-shadow(0 0 75px rgba(255, 255, 255, 0.5)); }
+        0% { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 40px rgba(0, 0, 255, 0.6)); }
+        100% { filter: drop-shadow(0 0 25px rgba(255, 50, 50, 0.9)) drop-shadow(0 0 50px rgba(50, 50, 255, 0.7)); }
     }
 
     .loading-text {
-        color: #ff66b2;
+        color: #ff0000;
         font-family: 'Bangers', cursive;
         font-size: 2.5em;
         margin-bottom: 40px;
         text-align: center;
         letter-spacing: 3px;
         text-shadow: 
-            0 0 5px #ff3385,
-            0 0 10px #ff3385,
-            0 0 15px #ff3385,
-            0 0 20px #ff0066;
+            0 0 5px #ff0000,
+            0 0 10px #ff0000;
         animation: textPulse 1.5s infinite alternate;
     }
 
     @keyframes textPulse {
-        0% { text-shadow: 0 0 10px #ff3385, 0 0 20px #ff3385, 0 0 30px #ff3385, 0 0 40px #ff0066; }
-        100% { text-shadow: 0 0 15px #ff66b2, 0 0 25px #ff66b2, 0 0 35px #ff66b2, 0 0 45px #ff3385; }
+        0% { text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000; }
+        100% { text-shadow: 0 0 8px #ff3333, 0 0 15px #ff3333; }
     }
 
     .loading-bar-container {
         width: 400px;
         height: 25px;
         background: rgba(0, 0, 0, 0.5);
-        border: 3px solid #3399ff;
+        border: 3px solid #0000ff;
         border-radius: 15px;
         overflow: hidden;
         box-shadow: 
@@ -158,12 +155,20 @@
         height: 100%;
         width: 0%;
         background: linear-gradient(90deg, 
-            #ff0066 0%,
-            #ff66b2 33%,
-            #3399ff 66%,
-            #66ccff 100%);
-        animation: loading 3s ease-in-out forwards;
+            #ff0000 0%,
+            #ffffff 50%,
+            #0000ff 100%);
+        animation: loadingBarFill 3s ease-in-out forwards;
         position: relative;
+    }
+
+    @keyframes loadingBarFill {
+        0% { width: 0%; }
+        20% { width: 25%; }
+        40% { width: 50%; }
+        60% { width: 75%; }
+        80% { width: 90%; }
+        100% { width: 100%; }
     }
 
     .loading-bar::after {
@@ -177,62 +182,35 @@
             transparent 0%,
             rgba(255, 255, 255, 0.4) 50%,
             transparent 100%);
-        animation: shine 1.5s infinite;
+        animation: loadingBarShine 2s infinite;
+    }
+
+    @keyframes loadingBarShine {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
     }
 
     .loading-subtext {
-        color: #66ccff;
+        color: #ffffff;
         font-family: 'Comic Neue', cursive;
         font-size: 1.2em;
         margin-top: 20px;
         text-align: center;
         letter-spacing: 1px;
-        animation: colorShift 3s infinite alternate;
     }
 
-    @keyframes colorShift {
-        0% { color: #66ccff; }
-        50% { color: #ff66b2; }
-        100% { color: #ffffff; }
-    }
-
-    /* Retro Roblox Header */
+    /* Roblox Header - Clean Red/Blue/White */
     header {
         background: linear-gradient(135deg, 
-            rgba(255, 0, 102, 0.9) 0%,
-            rgba(51, 153, 255, 0.9) 100%);
+            #ff0000 0%,
+            #0000ff 100%);
         padding: 30px 20px;
         text-align: center;
-        border-bottom: 8px solid #ffcc00;
+        border-bottom: 8px solid #ffffff;
         margin-bottom: 30px;
         position: relative;
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        animation: headerGlow 4s infinite alternate;
-    }
-
-    @keyframes headerGlow {
-        0% { box-shadow: 0 10px 30px rgba(255, 0, 102, 0.3); }
-        50% { box-shadow: 0 10px 30px rgba(51, 153, 255, 0.3); }
-        100% { box-shadow: 0 10px 30px rgba(255, 204, 0, 0.3); }
-    }
-
-    header::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, 
-            transparent, 
-            rgba(255, 255, 255, 0.2), 
-            transparent);
-        animation: shineHeader 3s infinite;
-    }
-
-    @keyframes shineHeader {
-        to { left: 100%; }
     }
 
     header h1 {
@@ -241,19 +219,8 @@
         margin: 0;
         letter-spacing: 5px;
         text-transform: uppercase;
-        background: linear-gradient(45deg, #ffffff, #ffcc00, #ffffff);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        animation: titleColorShift 5s infinite alternate;
-    }
-
-    @keyframes titleColorShift {
-        0% { background: linear-gradient(45deg, #ffffff, #ffcc00, #ffffff); }
-        33% { background: linear-gradient(45deg, #ffcc00, #3399ff, #ffcc00); }
-        66% { background: linear-gradient(45deg, #3399ff, #ff66b2, #3399ff); }
-        100% { background: linear-gradient(45deg, #ff66b2, #ffffff, #ff66b2); }
+        color: #ffffff;
+        text-shadow: 3px 3px 0 #000000;
     }
 
     header p {
@@ -262,7 +229,7 @@
         margin-top: 10px;
         font-family: 'Comic Neue', cursive;
         font-weight: 700;
-        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        text-shadow: 2px 2px 0 #000000;
     }
 
     /* Music Player */
@@ -270,7 +237,7 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background: rgba(51, 153, 255, 0.9);
+        background: rgba(0, 0, 255, 0.9);
         border-radius: 50px;
         padding: 15px 25px;
         display: flex;
@@ -279,7 +246,7 @@
         z-index: 100;
         box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         backdrop-filter: blur(10px);
-        border: 3px solid #ff66b2;
+        border: 3px solid #ff0000;
         animation: playerFloat 3s ease-in-out infinite;
         transition: transform 0.3s ease;
     }
@@ -304,7 +271,7 @@
 
     .music-player button:hover {
         transform: scale(1.2);
-        color: #ffcc00;
+        color: #ffffff;
     }
 
     .music-player span {
@@ -323,20 +290,15 @@
         z-index: 2;
     }
 
-    /* Retro Card Sections */
+    /* Section Styling with Clean Colors */
     section {
-        background: linear-gradient(145deg, 
-            rgba(255, 255, 255, 0.1) 0%,
-            rgba(51, 153, 255, 0.1) 50%,
-            rgba(255, 102, 178, 0.1) 100%);
-        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
         padding: 30px;
         margin-bottom: 30px;
         border: 3px solid;
-        border-image: linear-gradient(45deg, #ff0066, #3399ff, #ffcc00) 1;
-        box-shadow: 
-            0 10px 30px rgba(0, 0, 0, 0.2),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+        border-color: #ff0000;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         backdrop-filter: blur(10px);
         position: relative;
         overflow: hidden;
@@ -344,11 +306,12 @@
         animation: cardEntrance 0.8s ease-out backwards;
     }
 
-    section:nth-child(2) { animation-delay: 0.1s; }
-    section:nth-child(3) { animation-delay: 0.2s; }
-    section:nth-child(4) { animation-delay: 0.3s; }
-    section:nth-child(5) { animation-delay: 0.4s; }
-    section:nth-child(6) { animation-delay: 0.5s; }
+    section:nth-child(2) { animation-delay: 0.1s; border-color: #0000ff; }
+    section:nth-child(3) { animation-delay: 0.2s; border-color: #ff0000; }
+    section:nth-child(4) { animation-delay: 0.3s; border-color: #0000ff; }
+    section:nth-child(5) { animation-delay: 0.4s; border-color: #ff0000; }
+    section:nth-child(6) { animation-delay: 0.5s; border-color: #0000ff; }
+    section:nth-child(7) { animation-delay: 0.6s; border-color: #ff0000; }
 
     @keyframes cardEntrance {
         from {
@@ -363,97 +326,100 @@
 
     section:hover {
         transform: translateY(-10px) scale(1.02);
-        box-shadow: 
-            0 20px 40px rgba(0, 0, 0, 0.3),
-            0 0 30px rgba(255, 102, 178, 0.3),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
-    section::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, 
-            transparent, 
-            rgba(255, 255, 255, 0.1), 
-            transparent);
-        transition: left 0.7s ease;
-    }
-
-    section:hover::before {
-        left: 100%;
-    }
-
+    /* HEADING STYLES - Different fonts for each section */
     h2 {
-        font-family: 'Bangers', cursive;
         font-size: 2.5em;
-        color: #ffcc00;
         margin-bottom: 20px;
-        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+        text-shadow: 2px 2px 0 #000000;
         letter-spacing: 2px;
         position: relative;
         display: inline-block;
         padding-bottom: 10px;
-        animation: headingColor 6s infinite alternate;
+        color: #ffffff;
     }
 
-    @keyframes headingColor {
-        0% { color: #ffcc00; }
-        33% { color: #ff66b2; }
-        66% { color: #3399ff; }
-        100% { color: #ffffff; }
+    /* Overview - Comic Neue */
+    section:nth-child(1) h2 {
+        font-family: 'Comic Neue', cursive;
+        color: #ff0000;
+        border-bottom: 4px solid #ff0000;
+    }
+
+    /* History - Bangers */
+    section:nth-child(2) h2 {
+        font-family: 'Bangers', cursive;
+        color: #0000ff;
+        border-bottom: 4px solid #0000ff;
+    }
+
+    /* What is an Old Roblox Revival - Orbitron */
+    section:nth-child(3) h2 {
+        font-family: 'Orbitron', sans-serif;
+        color: #ffffff;
+        border-bottom: 4px solid #ffffff;
+    }
+
+    /* Staff Team - Comic Neue */
+    section:nth-child(4) h2 {
+        font-family: 'Comic Neue', cursive;
+        color: #ff0000;
+        border-bottom: 4px solid #ff0000;
+    }
+
+    /* Rules & Guidelines - Bangers */
+    section:nth-child(5) h2 {
+        font-family: 'Bangers', cursive;
+        color: #0000ff;
+        border-bottom: 4px solid #0000ff;
+    }
+
+    /* How to Join Kornet - Orbitron */
+    section:nth-child(6) h2 {
+        font-family: 'Orbitron', sans-serif;
+        color: #ffffff;
+        border-bottom: 4px solid #ffffff;
+    }
+
+    /* Credits - Comic Neue */
+    section:nth-child(7) h2 {
+        font-family: 'Comic Neue', cursive;
+        color: #ff0000;
+        border-bottom: 4px solid #ff0000;
     }
 
     h2::after {
         content: "";
         position: absolute;
-        bottom: 0;
+        bottom: -4px;
         left: 0;
-        width: 100%;
+        width: 100px;
         height: 4px;
-        background: linear-gradient(90deg, #ff0066, #3399ff, #ffcc00);
-        border-radius: 2px;
-        animation: underlineWidth 3s infinite alternate;
-    }
-
-    @keyframes underlineWidth {
-        0% { width: 30%; left: 0; }
-        50% { width: 100%; left: 0; }
-        100% { width: 30%; left: 70%; }
     }
 
     p {
         font-size: 1.2em;
         margin-bottom: 20px;
-        color: #e6f7ff;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        color: #ffffff;
+        text-shadow: 1px 1px 0 #000000;
     }
 
     strong {
-        color: #ffcc00;
-        text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        color: #ffffff;
         font-weight: 800;
+        text-shadow: 1px 1px 0 #000000;
     }
 
-    
+    /* Quote Box */
     .quote-box {
-        background: linear-gradient(135deg, 
-            rgba(255, 102, 178, 0.2) 0%,
-            rgba(51, 153, 255, 0.2) 100%);
+        background: rgba(255, 255, 255, 0.1);
         border-radius: 15px;
         padding: 25px;
         margin: 25px 0;
-        border-left: 5px solid #ff0066;
+        border-left: 5px solid #ff0000;
         position: relative;
-        animation: quoteGlow 4s infinite alternate;
-    }
-
-    @keyframes quoteGlow {
-        0% { box-shadow: inset 0 0 20px rgba(255, 0, 102, 0.2); }
-        100% { box-shadow: inset 0 0 20px rgba(51, 153, 255, 0.2); }
     }
 
     .quote-box::before {
@@ -461,7 +427,7 @@
         position: absolute;
         top: -20px;
         left: 20px;
-        color: #ff66b2;
+        color: #ff0000;
         font-size: 4em;
         font-family: 'Bangers', cursive;
         opacity: 0.5;
@@ -469,19 +435,14 @@
 
     .quote-author {
         text-align: right;
-        color: #66ccff;
+        color: #0000ff;
         font-weight: 700;
         margin-top: 15px;
         font-style: italic;
-        animation: authorColor 4s infinite alternate;
+        font-family: 'Comic Neue', cursive;
     }
 
-    @keyframes authorColor {
-        0% { color: #66ccff; }
-        100% { color: #ffcc00; }
-    }
-
-   
+    /* Lists */
     ul, ol {
         padding-left: 30px;
         margin-bottom: 20px;
@@ -489,10 +450,11 @@
 
     li {
         margin-bottom: 12px;
-        color: #ccf2ff;
+        color: #ffffff;
         padding-left: 10px;
         position: relative;
         transition: all 0.3s ease;
+        text-shadow: 1px 1px 0 #000000;
     }
 
     li:hover {
@@ -502,36 +464,21 @@
 
     li::before {
         content: "►";
-        color: #ff66b2;
+        color: #ff0000;
         position: absolute;
         left: -20px;
         font-size: 1.2em;
-        animation: bulletBounce 1s infinite alternate;
     }
 
-    @keyframes bulletBounce {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(5px); }
-    }
-
-    
+    /* Staff List */
     .staff-list {
-        background: linear-gradient(135deg, 
-            rgba(51, 153, 255, 0.2) 0%,
-            rgba(255, 102, 178, 0.2) 100%);
+        background: rgba(255, 255, 255, 0.1);
         padding: 25px;
         border-radius: 15px;
         margin-bottom: 20px;
         position: relative;
         overflow: hidden;
-        border: 2px solid #3399ff;
-        animation: staffBorder 5s infinite alternate;
-    }
-
-    @keyframes staffBorder {
-        0% { border-color: #3399ff; }
-        50% { border-color: #ff66b2; }
-        100% { border-color: #ffcc00; }
+        border: 2px solid #0000ff;
     }
 
     .staff-list::before {
@@ -539,7 +486,7 @@
         position: absolute;
         top: -15px;
         left: 30px;
-        background: linear-gradient(45deg, #ff0066, #3399ff);
+        background: #ff0000;
         color: white;
         padding: 8px 20px;
         font-family: 'Bangers', cursive;
@@ -549,20 +496,22 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     }
 
+    /* Links */
     a {
-        color: #66ccff;
+        color: #0000ff;
         text-decoration: none;
         position: relative;
         padding: 3px 5px;
         transition: all 0.3s ease;
         font-weight: 700;
         border-radius: 5px;
+        text-shadow: 1px 1px 0 #000000;
     }
 
     a:hover {
         color: #ffffff;
-        background: rgba(102, 204, 255, 0.2);
-        text-shadow: 0 0 15px rgba(102, 204, 255, 0.8);
+        background: #ff0000;
+        text-shadow: none;
     }
 
     a::after {
@@ -572,7 +521,7 @@
         left: 0;
         width: 0;
         height: 2px;
-        background: linear-gradient(90deg, #ff66b2, #66ccff);
+        background: #ffffff;
         transition: width 0.3s ease;
     }
 
@@ -580,52 +529,25 @@
         width: 100%;
     }
 
-   
+    /* Footer */
     footer {
         background: linear-gradient(135deg, 
-            rgba(255, 0, 102, 0.9) 0%,
-            rgba(51, 153, 255, 0.9) 100%);
+            #ff0000 0%,
+            #0000ff 100%);
         text-align: center;
         padding: 30px;
         margin-top: 50px;
-        border-top: 8px solid #ffcc00;
+        border-top: 8px solid #ffffff;
         position: relative;
         overflow: hidden;
-        animation: footerWave 8s infinite linear;
-    }
-
-    @keyframes footerWave {
-        0% { background-position: 0% 0%; }
-        100% { background-position: 100% 100%; }
-    }
-
-    footer::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 5px;
-        background: linear-gradient(90deg, 
-            transparent, 
-            #ffffff, 
-            transparent);
-        animation: footerShine 3s infinite;
-    }
-
-    @keyframes footerShine {
-        to { left: 100%; }
     }
 
     footer .glass-text {
         font-family: 'Bangers', cursive;
         font-size: 2em;
         letter-spacing: 3px;
-        background: linear-gradient(45deg, #ffffff, #ffcc00);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        color: #ffffff;
+        text-shadow: 2px 2px 0 #000000;
     }
 
     footer p {
@@ -633,9 +555,10 @@
         color: #ffffff;
         font-family: 'Comic Neue', cursive;
         font-weight: 700;
+        text-shadow: 2px 2px 0 #000000;
     }
 
-    
+    /* Loading screen transitions */
     body.loading #main-content {
         opacity: 0;
         visibility: hidden;
@@ -663,25 +586,24 @@
         }
     }
 
-    
+    /* Roblox-style Scrollbar */
     ::-webkit-scrollbar {
         width: 14px;
     }
 
     ::-webkit-scrollbar-track {
-        background: linear-gradient(to bottom, #1a1a4a, #0c0c2e);
+        background: #1a1a4a;
         border-radius: 10px;
     }
 
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(45deg, #ff0066, #3399ff, #ffcc00);
+        background: linear-gradient(180deg, #ff0000, #0000ff);
         border-radius: 10px;
         border: 3px solid #1a1a4a;
-        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(45deg, #ff3385, #66ccff, #ffd633);
+        background: linear-gradient(180deg, #ff3333, #3333ff);
     }
 
     /* Responsive */
@@ -696,6 +618,10 @@
         
         section {
             padding: 20px;
+        }
+        
+        h2 {
+            font-size: 2em;
         }
         
         .loading-bar-container {
@@ -727,7 +653,7 @@
         <div class="loading-bar-container">
             <div class="loading-bar"></div>
         </div>
-        <div class="loading-subtext">RETRO ROBLOX REVIVAL EXPERIENCE</div>
+        <div class="loading-subtext">RETRO ROBLOX REVIVAL</div>
     </div>
 
     <!-- Music Player -->
@@ -745,11 +671,11 @@
     <div id="main-content">
         <header>
             <h1>KORNET WIKI</h1>
-            <p>The Ultimate Retro Roblox Revival Experience</p>
+            <!-- Removed "The Ultimate Retro Roblox Revival Experience" -->
         </header>
 
         <main>
-            <!-- Overview -->
+            <!-- Overview - Comic Neue font -->
             <section>
                 <h2>OVERVIEW</h2>
                 <p><strong>Kornet</strong> is an <strong>old Roblox revival</strong> aiming to recreate the authentic feel of classic Roblox gameplay and community interaction. We preserve legacy styles, mechanics, and aesthetics from earlier versions of Roblox (circa 2016). Founded on November 7, 2025, we're bringing back the nostalgia.</p>
@@ -757,7 +683,7 @@
                 <p><strong>Official Discord Server:</strong> <a href="https://discord.gg/u5En32wvwM" target="_blank">https://discord.gg/u5En32wvwM</a></p>
             </section>
 
-            <!-- History -->
+            <!-- History - Bangers font -->
             <section>
                 <h2>HISTORY</h2>
                 <div class="quote-box">
@@ -766,13 +692,13 @@
                 </div>
             </section>
 
-            <!-- What is an Old Roblox Revival -->
+            <!-- What is an Old Roblox Revival - Orbitron font -->
             <section>
                 <h2>WHAT IS AN OLD ROBLOX REVIVAL?</h2>
                 <p>An old Roblox revival is a community project that aims to bring back the nostalgic experience of playing Roblox from its earlier years (roughly 2006-2016). These revivals often feature the older blocky graphics, simple UIs, classic games, and that authentic community feel that modern Roblox has lost.</p>
             </section>
 
-            <!-- Staff -->
+            <!-- Staff - Comic Neue font -->
             <section>
                 <h2>STAFF TEAM</h2>
                 <div class="staff-list">
@@ -783,7 +709,7 @@
                 </div>
             </section>
 
-            <!-- Rules -->
+            <!-- Rules - Bangers font -->
             <section>
                 <h2>RULES & GUIDELINES</h2>
                 <p>To maintain the classic Roblox community feel, we follow these rules:</p>
@@ -797,7 +723,7 @@
                 </ul>
             </section>
 
-            <!-- How to Join -->
+            <!-- How to Join - Orbitron font -->
             <section>
                 <h2>HOW TO JOIN KORNET</h2>
                 <p>Ready to experience classic Roblox again? Join Kornet by:</p>
@@ -808,7 +734,7 @@
                 </ol>
             </section>
 
-            <!-- Credits -->
+            <!-- Credits - Comic Neue font -->
             <section>
                 <h2>CREDITS</h2>
                 <ul>
@@ -827,14 +753,10 @@
         </footer>
     </div>
 
-<!-- External JavaScript -->
-<script src="loading.js"></script>
-<script src="main.js"></script>
-
 <script>
-    
+    // Background Elements Creation
     document.addEventListener('DOMContentLoaded', function() {
-       
+        // Create stars
         const starsContainer = document.getElementById('stars');
         for (let i = 0; i < 150; i++) {
             const star = document.createElement('div');
@@ -848,7 +770,7 @@
             starsContainer.appendChild(star);
         }
         
-       
+        // Create petals
         const petalsContainer = document.getElementById('petals');
         for (let i = 0; i < 25; i++) {
             const petal = document.createElement('div');
@@ -862,7 +784,7 @@
             petalsContainer.appendChild(petal);
         }
         
-      
+        // Music Player Functionality
         const musicPlayer = document.getElementById('musicPlayer');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const volumeBtn = document.getElementById('volumeBtn');
@@ -874,7 +796,7 @@
         let isPlaying = false;
         let isMuted = false;
         
-        
+        // Try to auto-play music (might be blocked by browser)
         setTimeout(() => {
             if (!isPlaying) {
                 backgroundMusic.play().then(() => {
@@ -889,7 +811,7 @@
             }
         }, 2000);
         
-     
+        // Play/Pause functionality
         playPauseBtn.addEventListener('click', function() {
             if (isPlaying) {
                 backgroundMusic.pause();
@@ -909,7 +831,7 @@
             isPlaying = !isPlaying;
         });
         
-        
+        // Volume toggle functionality
         volumeBtn.addEventListener('click', function() {
             if (isMuted) {
                 backgroundMusic.volume = 0.7;
@@ -925,10 +847,11 @@
             isMuted = !isMuted;
         });
         
-        
+        // Set initial volume
         backgroundMusic.volume = 0.7;
         
-      
+        // Update the existing loading.js to work with our new design
+        // This ensures compatibility with the external loading.js file
         document.querySelectorAll('h1, h2, h3, strong').forEach(el => {
             if (!el.classList.contains('glass-text')) {
                 el.classList.add('glass-text');
@@ -939,4 +862,3 @@
 
 </body>
 </html>
-
